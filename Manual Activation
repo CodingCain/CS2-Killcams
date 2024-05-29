@@ -35,7 +35,6 @@ def on_press(key):
         # Wait for the YouTube homepage to load
         time.sleep(5)
 
-        # Further automation steps
         # Click uplod
         pyautogui.click(x=1749, y=135)
 
