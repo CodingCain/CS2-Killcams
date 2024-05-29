@@ -1,0 +1,100 @@
+import numpy as np
+import cv2
+import pyautogui
+import time
+import webbrowser
+
+#  Copy (you're in game chat message)
+
+# Define the region of interest (game window coordinates)
+game_x, game_y, game_width, game_height = 1663, 101, 150, 75
+
+# Load the image to detect (example: kill feed)
+kill_feed_img = cv2.imread(location of your killfeed image)
+
+# Function to check if kill is detected
+def is_kill_detected(frame):
+    # Search for kill feed image in the frame
+    result = cv2.matchTemplate(frame, kill_feed_img, cv2.TM_CCOEFF_NORMED)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+    threshold = 0.3  # Adjust threshold as needed
+    return max_val > threshold
+
+# Main loop
+while True:
+    # Capture game window
+    screenshot = pyautogui.screenshot(region=(game_x, game_y, game_width, game_height))
+    frame = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+
+    # Check for kill
+    if is_kill_detected(frame):
+        # If kill detected, type message in game chat
+        pyautogui.press('y')
+        pyautogui.hotkey('ctrl', 'v')
+        pyautogui.press('enter')
+        time.sleep(5)
+        pyautogui.hotkey('alt', 'g')
+
+        # Open Google Chrome with YouTube homepage
+        webbrowser.open("https://www.youtube.com")
+
+        # Wait for the YouTube homepage to load
+        time.sleep(5)
+
+        # Click uplod
+        pyautogui.click(x=1749, y=135)
+
+        # Click upload video
+        time.sleep(0.5)
+        pyautogui.click(x=1818, y=192)
+
+        # Click select file
+        time.sleep(3)
+        pyautogui.click(x=956, y=690)
+
+        # double click newest video in folder
+        time.sleep(1)
+        pyautogui.click(x=235, y=179, clicks=2)
+
+        # full selects title
+        time.sleep(5)
+        pyautogui.click(x=566, y=410, clicks=3)
+
+        # Types title
+        pyautogui.press('backspace')
+        current_time = time.strftime("%H:%M")
+        pyautogui.typewrite(f"Backwoods killed an Enemy at {current_time}")
+
+        # Adds description
+        time.sleep(1)
+        pyautogui.click(x=800, y=550)
+        pyautogui.typewrite("I added killcams to CS2. Full Video will be up at https://www.youtube.com/@CainKillEmAll")
+
+        # Clicks next
+        time.sleep(1)
+        pyautogui.click(x=1395, y=959)
+
+        # Clicks next
+        time.sleep(.5)
+        pyautogui.click(x=1395, y=959)
+        time.sleep(.5)
+        pyautogui.click(x=1395, y=959)
+
+        # Clicks public
+        time.sleep(.5)
+        pyautogui.click(x=587, y=585)
+
+        # Clicks publish
+        time.sleep(1)
+        pyautogui.click(x=1379, y=961)
+
+        # Clicks close
+        time.sleep(.5)
+        pyautogui.click(x=1166, y=703)
+
+        # Clicks back on game
+        time.sleep(.5)
+        pyautogui.click(x=660, y=1055)
+
+    # Delay to avoid high CPU usage
+    time.sleep(5)  # Adjust as needed
